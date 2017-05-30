@@ -24,6 +24,7 @@ function createEnv(path, opts) {
 
 var env = createEnv('views', {
     watch: true,
+    noCache: true,
     filters: {
         hex: function (n) {
             return '0x' + n.toString(16);
@@ -33,8 +34,13 @@ var env = createEnv('views', {
 
 
 var s = env.render('hello.html', {
-    name: 'xiaoming'
+    name: '小明',
+    fruits: ['张三','李四','王五']
 });
+
+// var s = env.render('extend.html',{
+//     body: 'bla bla bla...'
+// });
 
 console.log(s);
 
