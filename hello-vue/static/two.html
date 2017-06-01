@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="learn javascript by www.liaoxuefeng.com">
+    <title>Vue</title>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/vue.js"></script>
+    <script>
+        $(function () {
+            var vm = new Vue({
+                el: '#vm',
+                data: {
+                    email: '',
+                    name: ''
+                },
+                methods: {
+                    register: function (){
+                        alert(this.name);
+                    }
+                }
+            });
+            window.vm = vm;
+        })
+    </script>
+</head>
+
+<body>
+    <form id="vm" v-on:submit.prevent="register">
+        <p><input v-model="email"></p>
+        <p><input v-model="name"></p>
+        <input type="submit" value="提交"></input>
+    </form>
+</body>
+
+</html>

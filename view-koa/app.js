@@ -25,7 +25,7 @@ app.use(async (ctx, next) => {
 //处理静态文件
 if (! isProduction) {
     let staticFiles = require('./static-files');
-    app.use(staticFiles('/static/', __dirname + '/static'));
+    app.use(staticFiles('/static11/', __dirname + '/static11'));
 }
 
 // 解析post请求

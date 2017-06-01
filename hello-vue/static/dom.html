@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="learn javascript by www.liaoxuefeng.com">
+    <title>Vue</title>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/vue.js"></script>
+    <script>
+        $(function () {
+            var vm = new Vue({
+                el: '#vm',
+                data: {
+                    todos: [
+                        {
+                            name: '产品评审',
+                            description: '新款iPhone上市前评审'
+                        },
+                        {
+                            name: '开发计划',
+                            description: '与PM确定下一版Android开发计划'
+                        },
+                        {
+                            name: 'VC会议',
+                            description: '敲定C轮5000万美元融资'
+                        }
+                    ]
+                }
+            });
+            window.vm = vm;
+        })
+    </script>
+</head>
+
+<body>
+    <ol id="vm">
+        <li v-for="t in todos">
+            <dl>
+                <dt>{{ t.name }}</dt>
+                <dd>{{ t.description }}</dd>
+            </dl>
+        </li>
+    </ol>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+{% extends "base.html" %} {% block main %}
+
+<script>
+    $(function(){
+        var vm = new Vue({
+            el: '#vm',
+            data: {
+                name: 'Robot',
+                age: 15
+            }
+        });
+        window.vm = vm;
+    })
+</script>
+
+<input type="button" id="btn-list" value="获取数据" />
+<input type="button" id="btn-add" value="添加" />
+<input type="button" id="btn-del" value="删除" />
+
+<table id="list">
+    <tr>
+        <td>Product</td>
+        <td>Price</td>
+    </tr>
+</table>
+
+<div id="vm">
+    <p>Hello, {{ name }}!</p>
+    <p>You are {{ age }} years old!</p>
+</div>
+<script>
+    $(function () {
+        var tbody = "";
+        $("#btn-list").click(function () {
+            $.get("/api/products", function (data) {
+                if (data) {
+                    for (var i = 0; i < data.products.length; i++) {
+                        var tr = "<tr><td>" + data.products[i].name + "</td><td>" + data.products[i].price + "</td></tr>";
+                        $("#list").append(tr);
+                    }
+                }
+            })
+        });
+    })
+
+</script>
+{% endblock %}

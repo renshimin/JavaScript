@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>{{title}}</title>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/vue.js"></script>
+    <script src="/static/js/vue-resource.min.js"></script>
+    
+</head>
+
+<body>
+
+
+
+    <div id="vm">
+        <h3>{{ title }}</h3>
+        <p v-if="loading">Loading...</p>
+        <ol>
+            <li v-for="t in todos">
+                <dl>
+                    <dt>{{ t.name }}</dt>
+                    <dd>{{ t.description }}</dd>
+                    <dd><a href="#0">Delete</a></dd>
+                </dl>
+            </li>
+        </ol>
+    </div>
+
+
+    <script>
+        function showError(resp) {
+            resp.json().then(function (result) {
+                console.log('Error: ' + result.message);
+            });
+        }
+        $(function () {
+            var vm = new Vue({
+                el: '#vm',
+                http: {
+                    timeout: 5000
+                },
+                data: {
+                    title: 'TODO List',
+                    todos: [],
+                    loading: false
+                },
+                created: function () {
+                    this.init();
+                },
+                methods: {
+                    init: function () {
+                        var that = this;
+                        that.loading = true;
+                        that.$resource('/api/todos').get().then(function (resp) {
+                            that.loading = false;
+                            resp.json().then(function (result) {
+                                that.todos = result.todos;
+                            });
+                        }, function (resp) {
+                            that.loading = false;
+                            showError(resp);
+                        });
+                    }
+                }
+            });
+            window.vm = vm;
+        });
+    </script>
+
+</body>
+
+</html>
